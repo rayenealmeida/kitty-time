@@ -1,5 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CustomUser
+from django.contrib.auth.forms import UserCreationForm
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Redireciona para a página de login após o registro bem-sucedido
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
 def home(request):
     return render(request, 'home.html')
