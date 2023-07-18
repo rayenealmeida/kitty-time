@@ -1,0 +1,68 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#myVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilo para o botão */
+#playButton {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    border: none;
+    background-color: #1833ac; /* Cor do botão (azul) */
+    color: #fff; /* Cor do texto (branco) */
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 25px; /* Borda arredondada */
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Estilos para o temporizador */
+#timer {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7); /* Cor de fundo do temporizador (preto com transparência) */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+/* NAV BAR */
+
+.navbar-dark {
+    height: 60px;
+    background: #1e2033;
+    position: fixed;
+}
+
+.navbar-dark .navbar-toggler {
+    color: rgba(255, 255, 255, .5);
+    border: none;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 1)!important;
+}
+
