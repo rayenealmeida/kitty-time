@@ -8,6 +8,10 @@ body, html {
     justify-content: center;
 }
 
+.container {
+    background-color: #1e2033;
+}
+
 /* Estilo para o vídeo */
 #myVideo {
     position: absolute;

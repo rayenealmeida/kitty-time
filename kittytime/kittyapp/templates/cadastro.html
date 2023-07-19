@@ -1,5 +1,3 @@
-<!-- cadastro.html -->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,7 +18,7 @@
                         <form method="post">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <div class="text-center">
+                            <div class="text-center mb-4"> <!-- Adiciona uma margem na parte inferior (margin-bottom) -->
                                 <button type="submit" class="btn btn-primary">Cadastrar</button>
                             </div>
                             <div class="text-center mt-3">

@@ -26,6 +26,12 @@
                             </a>
                         </li>
                     </ul>
+                    {% if user.is_authenticated %}
+                        <div class="navbar-text mr-3">Bem-vindo, {{ user.username }}</div>
+                        <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{% url 'login' %}">Entrar</a>
+                    {% endif %}
                 </div>
             </nav>
         </div>
