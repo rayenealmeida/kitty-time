@@ -49,6 +49,12 @@ body, html {
     z-index: 999;
 }
 
+ /* Estilo para os botões */
+.control-buttons {
+    display: none;
+    margin-top: 10px;
+}
+
 /* Estilo para o botão Cancelar */
 #cancelButton {
     position: absolute;
@@ -97,3 +103,4 @@ body, html {
 .navbar-dark .navbar-nav .nav-link {
     color: rgba(255, 255, 255, 1)!important;
 }
+
