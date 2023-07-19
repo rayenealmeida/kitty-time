@@ -44,6 +44,10 @@
     <video id="myVideo" loop muted playsinline>
         <source src="{% static 'kittyapp/mod1.mp4' %}" type="video/mp4">
     </video>
+    <!-- Áudio de miado de gato -->
+    <audio id="catSound" preload="auto">
+        <source src="{% static 'kittyapp/cat_meow.mp3' %}" type="audio/mpeg">
+    </audio>
 
     <!-- Script para controlar a reprodução do vídeo -->
     <script>
@@ -52,6 +56,7 @@
         const cancelButton = document.getElementById('cancelButton');
         const video = document.getElementById('myVideo');
         const timer = document.getElementById('timer');
+        const catSound = document.getElementById('catSound');
         let timerInterval;
         
         let secondsLeft = 25 * 60; // Tempo inicial em segundos (25 minutos)
@@ -61,6 +66,14 @@
             const seconds = secondsLeft % 60;
             timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             secondsLeft--;
+        
+            if (secondsLeft < 0) {
+                clearInterval(timerInterval); // Pausa o temporizador
+                video.pause(); // Pausa o vídeo
+                timer.textContent = '25:00'; // Define o texto do temporizador de volta para 25:00
+                playButton.style.display = 'block'; // Exibe novamente o botão de iniciar o vídeo
+                catSound.play();
+            }
         }
 
         function startTimer() {
