@@ -15,39 +15,30 @@
         <div class='container'>
 
             <!-- MENU -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i style="color:#fff; font-size: 25px;" class="fa-solid fa-bars"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" ><img style="height: 80px" src="{% static 'kittyapp/logo4.png' %}" alt="Logo">
-                </a>
-            </li>
-        </ul>
-        <!--<form class="form-inline" style="display:inline-flex; margin-top: 10px;">
-            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Pesquisar por disciplinas..." id="search-input" aria-label="Search">
-            <button id="search-button" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
-        </form>-->
-    </div>
-</nav>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-            <nav>
-                <a href="{% url 'home' %}">
-                    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-                </a>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i style="color:#fff; font-size: 25px;" class="fa-solid fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" ><img style="height: 80px" src="{% static 'kittyapp/logo4.png' %}" alt="Logo">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </header>
 
     <!-- Temporizador -->
-    <div id="timer">25:00</div>
-
-     <!-- Botão para iniciar o vídeo -->
-     <button id="playButton">Iniciar Vídeo</button>
+    <div>
+        <div id="timer">25:00</div>
+        <!-- Botões -->
+        <button id="playButton">Iniciar Vídeo</button>
+        <button id="pauseButton">Pausar</button>
+        <button id="cancelButton">Cancelar</button>
+    </div>
 
     <!-- Vídeo -->
     <video id="myVideo" loop muted playsinline>
@@ -55,43 +46,75 @@
     </video>
 
     <!-- Script para controlar a reprodução do vídeo -->
-<script>
-    const playButton = document.getElementById('playButton');
-    const video = document.getElementById('myVideo');
-    const timer = document.getElementById('timer');
+    <script>
+        const playButton = document.getElementById('playButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const video = document.getElementById('myVideo');
+        const timer = document.getElementById('timer');
+        let timerInterval;
+        
+        let secondsLeft = 25 * 60; // Tempo inicial em segundos (25 minutos)
 
-    let secondsLeft = 25 * 60; // Tempo inicial em segundos (25 minutos)
+        function updateTimer() {
+            const minutes = Math.floor(secondsLeft / 60);
+            const seconds = secondsLeft % 60;
+            timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            secondsLeft--;
+        }
 
-    function updateTimer() {
-        const minutes = Math.floor(secondsLeft / 60);
-        const seconds = secondsLeft % 60;
-        timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        secondsLeft--;
-    }
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000); // Atualiza o temporizador a cada segundo
+        }
 
-    playButton.addEventListener('click', function () {
-        video.play();
-        playButton.style.display = 'none';
-        setInterval(updateTimer, 1000); // Atualiza o temporizador a cada segundo
-    });
+        function pauseTimer() {
+            clearInterval(timerInterval); // Pausa o temporizador
+        }
 
-    // tempo de loop em milissegundos (25 minutos)
-    var loopTime = 25 * 60 * 1000;
+        function resetTimer() {
+            clearInterval(timerInterval); // Limpa o intervalo do temporizador
+            video.currentTime = 0; // Reinicia o vídeo para o início
+            secondsLeft = 25 * 60; // Reinicia o temporizador para 25 minutos
+            timer.textContent = '25:00';
+            playButton.style.display = 'block'; // Exibe novamente o botão de iniciar o vídeo
+        }
 
-    // Quando o vídeo terminar, exiba novamente o botão para reiniciar o vídeo
-    video.addEventListener('ended', function () {
-        playButton.style.display = 'block';
-    });
+        playButton.addEventListener('click', function () {
+            video.play();
+            playButton.style.display = 'none';
+            startTimer(); // Atualiza o temporizador a cada segundo
+        });
 
-    // Reiniciar o vídeo quando terminar
-    video.onended = function () {
-        video.currentTime = 0;
-        secondsLeft = 25 * 60;
-        timer.textContent = '25:00';
-    };
-</script>
+        pauseButton.addEventListener('click', function () {
+            video.pause();
+            pauseTimer();
+        });
 
+        cancelButton.addEventListener('click', function () {
+            video.pause();
+            resetTimer();
+        });
 
+        // Quando o vídeo terminar, exiba novamente o botão para reiniciar o vídeo
+        video.addEventListener('ended', function () {
+            playButton.style.display = 'block';
+        });
+
+        // Reiniciar o vídeo quando terminar
+        video.onended = function () {
+            video.currentTime = 0;
+            secondsLeft = 25 * 60;
+            timer.textContent = '25:00';
+        };
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <nav>
+        <a href="{% url 'home' %}">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+        </a>
+    </nav>
 </body>
 </html>
-
