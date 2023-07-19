@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete {{ cat.name }}</title>
+</head>
+<body>
+    <h1>Delete {{ cat.name }}</h1>
+    <p>Are you sure you want to delete {{ cat.name }}?</p>
+    <form action="{% url 'cat_delete' cat.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+</body>
+</html>

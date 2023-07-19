@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, authenticate
 
-from .forms import CadastroForm
+
+from .forms import CadastroForm, CatForm 
+from .models import Cat
 
 def home(request):
     if not request.user.is_authenticated:
@@ -39,3 +41,49 @@ def user_login(request):
         form = AuthenticationForm()
     
     return render(request, 'login.html', {'form': form})
+
+def cat_list(request):
+    cats = Cat.objects.all()
+    return render(request, 'cat_list.html', {'cats': cats})
+
+def cat_detail(request, cat_id):
+    cat = get_object_or_404(Cat, id=cat_id)
+    return render(request, 'cat_detail.html', {'cat': cat})
+
+def cat_create(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = CatForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('cat_list')
+        else:
+            form = CatForm()
+        return render(request, 'cat_create.html', {'form': form})
+    else:
+        return redirect('login')
+    
+def cat_update(request, cat_id):
+    if request.user.is_authenticated:
+        cat = get_object_or_404(Cat, id=cat_id)
+        if request.method == 'POST':
+            form = CatForm(request.POST, instance=cat)
+            if form.is_valid():
+                form.save()
+                return redirect('cat_detail', cat_id=cat_id)
+        else:
+            form = CatForm(instance=cat)
+        return render(request, 'cat_update.html', {'form': form, 'cat': cat})
+    else:
+        return redirect('login')
+    
+def cat_delete(request, cat_id):
+    if request.user.is_authenticated:
+        cat = get_object_or_404(Cat, id=cat_id)
+        if request.method == 'POST':
+            cat.delete()
+            return redirect('cat_list')
+        return render(request, 'cat_delete.html', {'cat': cat})
+    else:
+        return redirect('login')
+    
