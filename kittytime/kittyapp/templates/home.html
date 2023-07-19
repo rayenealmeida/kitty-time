@@ -34,10 +34,11 @@
     <!-- Temporizador -->
     <div>
         <div id="timer">25:00</div>
-        <!-- Botões -->
         <button id="playButton">Iniciar Vídeo</button>
-        <button id="pauseButton">Pausar</button>
-        <button id="cancelButton">Cancelar</button>
+        <div class="control-buttons">
+            <button id="pauseButton">Pausar</button>
+            <button id="cancelButton">Cancelar</button>
+        </div>
     </div>
 
     <!-- Vídeo -->
@@ -56,9 +57,7 @@
         const cancelButton = document.getElementById('cancelButton');
         const video = document.getElementById('myVideo');
         const timer = document.getElementById('timer');
-        const catSound = document.getElementById('catSound');
         let timerInterval;
-        
         let secondsLeft = 25 * 60; // Tempo inicial em segundos (25 minutos)
 
         function updateTimer() {
@@ -71,8 +70,10 @@
                 clearInterval(timerInterval); // Pausa o temporizador
                 video.pause(); // Pausa o vídeo
                 timer.textContent = '25:00'; // Define o texto do temporizador de volta para 25:00
-                playButton.style.display = 'block'; // Exibe novamente o botão de iniciar o vídeo
-                catSound.play();
+                document.querySelector('.control-buttons').style.display = 'none'; // Esconde os botões de controle
+                pauseButton.textContent = 'Pausar'; // Reinicia o texto do botão de pausar
+                const audio = new Audio('{% static "kittyapp/cat_meow.mp3" %}');
+                audio.play(); // Emite som de miado de gato
             }
         }
 
@@ -82,6 +83,9 @@
 
         function pauseTimer() {
             clearInterval(timerInterval); // Pausa o temporizador
+            document.querySelector('.control-buttons').style.display = 'block'; 
+            pauseButton.textContent = 'Voltar';
+            cancelButton.style.display = 'block';
         }
 
         function resetTimer() {
@@ -90,27 +94,42 @@
             secondsLeft = 25 * 60; // Reinicia o temporizador para 25 minutos
             timer.textContent = '25:00';
             playButton.style.display = 'block'; // Exibe novamente o botão de iniciar o vídeo
+            document.querySelector('.control-buttons').style.display = 'none'; // Esconde os botões de controle
+            pauseButton.style.display = 'none'; // Esconde o botão "Pausar"
+            cancelButton.style.display = 'none'; 
         }
 
         playButton.addEventListener('click', function () {
             video.play();
             playButton.style.display = 'none';
+            document.querySelector('.control-buttons').style.display = 'block'; // Exibe os botões de controle
             startTimer(); // Atualiza o temporizador a cada segundo
         });
 
         pauseButton.addEventListener('click', function () {
-            video.pause();
-            pauseTimer();
+            if (video.paused) {
+                video.play(); // Se o vídeo estiver pausado, retome a reprodução
+                startTimer(); // Continue contando o tempo
+                pauseButton.textContent = 'Pausar'; // Altere o texto do botão para "Pausar" novamente
+            } else {
+                video.pause(); // Se o vídeo estiver em reprodução, pause-o
+                pauseTimer(); // Pausar o temporizador e alterar o botão para "Voltar"
+                pauseButton.textContent = 'Voltar';
+            }
         });
 
         cancelButton.addEventListener('click', function () {
             video.pause();
             resetTimer();
         });
+        // tempo de loop em milissegundos (25 minutos)
+        var loopTime = 25 * 60 * 1000;
 
         // Quando o vídeo terminar, exiba novamente o botão para reiniciar o vídeo
         video.addEventListener('ended', function () {
             playButton.style.display = 'block';
+            pauseButton.style.display = 'none';
+            document.querySelector('.control-buttons').style.display = 'none'; // Esconde os botões de controle
         });
 
         // Reiniciar o vídeo quando terminar
@@ -118,6 +137,11 @@
             video.currentTime = 0;
             secondsLeft = 25 * 60;
             timer.textContent = '25:00';
+            document.querySelector('.control-buttons').style.display = 'none'; // Esconde os botões de controle
+            pauseButton.style.display = 'none';
+            playButton.style.display = 'block';
+            const audio = new Audio('{% static "kittyapp/cat_meow.mp3" %}');
+            audio.play();
         };
     </script>
 
