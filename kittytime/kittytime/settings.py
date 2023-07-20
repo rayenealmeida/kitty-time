@@ -46,13 +46,9 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_URL = 'login'
-
-LOGIN_REDIRECT_URL = 'home'
 
 ROOT_URLCONF = "kittytime.urls"
 
-LOGOUT_REDIRECT_URL = 'login'
 
 TEMPLATES = [
     {

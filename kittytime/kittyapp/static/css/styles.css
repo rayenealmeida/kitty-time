@@ -74,6 +74,11 @@ body, html {
     z-index: 999;
 }
 
+#timer-container {
+    text-align: center;
+    margin-top: 150px; 
+}
+
 /* Estilos para o temporizador */
 #timer {
     position: absolute;
@@ -87,6 +92,7 @@ body, html {
     border-radius: 5px !important;
     z-index: 999;
 }
+
 
 /* Estilos para o navbar */
 .navbar {

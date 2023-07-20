@@ -26,19 +26,13 @@
                             </a>
                         </li>
                     </ul>
-                    {% if user.is_authenticated %}
-                        <div class="navbar-text mr-3">Bem-vindo, {{ user.username }}</div>
-                        <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
-                    {% else %}
-                        <a class="btn btn-primary" href="{% url 'login' %}">Entrar</a>
-                    {% endif %}
                 </div>
             </nav>
         </div>
     </header>
 
     <!-- Temporizador -->
-    <div>
+    <div id="timer-container">
         <div id="timer">25:00</div>
         <button id="playButton">Iniciar Vídeo</button>
         <div class="control-buttons">
@@ -108,6 +102,8 @@
         playButton.addEventListener('click', function () {
             video.play();
             playButton.style.display = 'none';
+            pauseButton.style.display = 'block'; // Exibe o botão de pausar
+            cancelButton.style.display = 'block'; // Exibe o botão de cancelar
             document.querySelector('.control-buttons').style.display = 'block'; // Exibe os botões de controle
             startTimer(); // Atualiza o temporizador a cada segundo
         });
