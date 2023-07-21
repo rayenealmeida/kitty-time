@@ -22,15 +22,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" ><img style="height: 80px" src="{% static 'kittyapp/logo4.png' %}" alt="Logo">
+                            <a class="nav-link" href="{% url 'home' %}">
+                                <img style="height: 80px" src="{% static 'kittyapp/logo4.png' %}" alt="Logo">
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'create_session' %}">Criar Sessão</a>
+                        <!-- Novo botão -->
+                        <li class="nav-item nav-sessao">
+                            <a class="nav-link" href="{% url 'sessao' %}">Sessões de Estudos</a>
                         </li>
                     </ul>
                     {% if user.is_authenticated %}
-                        <div class="navbar-text mr-3">Bem-vindo, {{ user.username }}</div>
+                        <div class="navbar-text mr-3">Bem-vindo(a), {{ user.username }}</div>
                         <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
                     {% else %}
                         <a class="btn btn-primary" href="{% url 'login' %}">Entrar</a>

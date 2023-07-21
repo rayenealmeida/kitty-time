@@ -114,3 +114,34 @@ body, html {
     color: rgba(255, 255, 255, 1)!important;
 }
 
+/* Estilo para o novo botão "Sessão" */
+.nav-sessao {
+    margin-left: 20px; /* Espaçamento entre o logo e o botão "Sessão" */
+}
+
+.nav-sessao a {
+    color: #fff; /* Cor do texto do botão (branco) */
+    font-size: 16px;
+    text-decoration: none; /* Remova a decoração de texto do link */
+    padding: 12px 24px;
+    border-radius: 25px; /* Borda arredondada */
+}
+
+/* Ajuste a posição vertical do botão "Sessão" aqui */
+.nav-sessao a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.nav-sessao a::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -10px; /* Ajuste a posição horizontal do botão */
+    width: 2px;
+    height: 25px;
+    background-color: #fff; /* Cor da linha vertical ao lado do botão */
+    transform: translateY(-50%);
+}
