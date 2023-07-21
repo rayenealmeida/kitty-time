@@ -1,0 +1,42 @@
+/* Estilos específicos para a página de cadastro */
+.cadastro-page {
+    background: url("kittyapp/logo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-color: #1c3a5a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container.cadastro-page {
+    background-color: #1c3a5a; /* Mesma cor de fundo da página */
+}
+
+.logo-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 550px; /* Ajuste o valor da altura da imagem conforme necessário */
+    background: url("{% static 'kittyapp/logo.png' %}");
+    background-size: cover;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+}
+
+.message-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #1c3a5a;
+    color: #fff; /* Ajuste a cor do texto da mensagem */
+    text-align: center;
+}
+

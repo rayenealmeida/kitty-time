@@ -21,7 +21,7 @@ def cadastro(request):
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
 
-        return HttpResponse('Usuário cadastrado com sucesso')
+        return render(request, 'login.html')
     
 def login(request):
     if request.method == "GET":
@@ -41,4 +41,4 @@ def login(request):
 
 @login_required(login_url="/login/")
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'user': request.user})
