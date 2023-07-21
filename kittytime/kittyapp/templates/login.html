@@ -1,17 +1,30 @@
-<html>
-    <head>
-    </head>
-
-    <body>
-        <form action= "{% url 'login' %}" method="POST">{% csrf_token %}
-            <input type="text" placeholder="Username..." name="username">
-            <br>
-            <br>
-            <input type="password" placeholder="Senha..." name="senha">
-            <br>
-            <br>
-            <input type="submit" value="logar">
-            <br>
-        </form>
-    </body>
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pagina de Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container mt-4">
+        <div class ="row align-items-center">
+            <div class="col-md-10 mx-auto col-lg-5">
+                <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+                    <div class="mb-3">
+                        <label for="inputUsername" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="inputUsername" name="username" placeholder="Username...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputPassword" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="inputPassword" name="senha" placeholder="Senha">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" value="lembrar de mim">
+                        <label class="form-check-label" for="rememberMe">Lembrar de mim</label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Entrar</button>
+                </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  </body>
 </html>

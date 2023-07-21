@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 def cadastro(request):
     if request.method == "GET":
@@ -32,12 +33,12 @@ def login(request):
         user = authenticate(username=username, password=senha)
         
         if user: 
-            login_django(request, user)  
-            return HttpResponse('')
+            login_django(request, user)
+            return redirect('home')
+            
         else:
             return HttpResponse('Email ou senha inválidos')
 
 @login_required(login_url="/login/")
 def home(request):
-    print("View home chamada após o login")
     return render(request, 'home.html')
