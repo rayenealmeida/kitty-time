@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from django.contrib.auth.models import User 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
+from django.contrib.auth.decorators import login_required
 
 def cadastro(request):
     if request.method == "GET":
@@ -24,7 +25,6 @@ def cadastro(request):
 def login(request):
     if request.method == "GET":
         return render(request, 'login.html')
-    
     else:
         username = request.POST.get('username')
         senha = request.POST.get('senha')
@@ -32,12 +32,12 @@ def login(request):
         user = authenticate(username=username, password=senha)
         
         if user: 
-            login_django(request, user)
-            return HttpResponse('autenticado')
+            login_django(request, user)  
+            return HttpResponse('')
         else:
-            return HttpResponse('Email ou senha invalidos')
-        
+            return HttpResponse('Email ou senha inválidos')
+
+@login_required(login_url="/login/")
 def home(request):
-    if request.user.is_authenticated:
-        return render(request, 'home.html')
-    return HttpResponse('Você precisa estar logado')
+    print("View home chamada após o login")
+    return render(request, 'home.html')
