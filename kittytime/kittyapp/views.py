@@ -44,31 +44,3 @@ def login(request):
 @login_required(login_url="/login/")
 def home(request):
     return render(request, 'home.html', {'user': request.user})
-
-#CRUD
-def list_sessions(request):
-    sessions = Session.objects.filter(user=request.user)
-    return render(request, 'list_sessions.html', {'sessions': sessions})
-
-def create_session(request):
-    if request.method == "POST":
-        form = SessionForm(request.POST)
-        if form.is_valid():
-            session = form.save(commit=False)
-            session.user = request.user
-            session.save()
-            return redirect('list_sessions')
-    else:
-        form = SessionForm()
-    return render(request, 'create_session.html', {'form': form})
-
-def update_session(request, session_id):
-    session = get_object_or_404(Session, id=session_id, user=request.user)
-    if request.method == "POST":
-        form = SessionForm(request.POST, instance=session)
-        if form.is_valid():
-            form.save()
-            return redirect('list_sessions')
-    else:
-        form = SessionForm(instance=session)
-    return render(request, 'update_session.html', {'form': form, 'session': session})
