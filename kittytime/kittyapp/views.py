@@ -44,12 +44,14 @@ def login(request):
 def home(request):
     return render(request, 'home.html', {'user': request.user})
 
+#CRUD
 def sessao(request):
     return render(request, 'sessao.html')
 
 def lista_sessoes(request):
     sessoes = SessaoEstudo.objects.all()
     return render(request, 'sessao.html', {'sessoes': sessoes})
+
 
 def adicionar_sessao(request):
     if request.method == 'POST':

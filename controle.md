@@ -5,9 +5,6 @@
 
 10% - Dockerização OK
 
-10% - Estilização com Boostrap (ou similar)
+10% - Estilização com Boostrap (ou similar) OK
 
 10% - Painel de administração de BD (admin) OK
-
-# a fazer
-- estilizaçao bootstrap 

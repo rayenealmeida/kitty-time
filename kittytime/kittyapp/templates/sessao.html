@@ -1,49 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/sessao.css' %}">
     <title>Sessões de Estudos</title>
 </head>
 <body>
-    
-    <h1>Painel de Gerenciamento de Sessões de Estudos</h1>
+    <!--header-->
+    <header>
+        <!--container-->
+        <div class='container'>
 
-    <!-- Formulário para adicionar nova sessão -->
-    <form method="post" action="{% url 'adicionar_sessao' %}">
-        {% csrf_token %}
-        <label for="titulo">Título:</label>
-        <input type="text" name="titulo" required>
-        <br>
-        <label for="descricao">Descrição:</label>
-        <textarea name="descricao" required></textarea>
-        <br>
-        <label for="tempo_contado">Tempo Contado (em minutos):</label>
-        <input type="number" name="tempo_contado" required>
-        <br>
-        <button type="submit">Adicionar Sessão</button>
-    </form>
+            <!-- MENU -->
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i style="color:#fff; font-size: 25px;" class="fa-solid fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">
+                                <img style="height: 60px;" src="{% static 'kittyapp/logo4.png' %}" alt="Logo">
+                            </a>
+                        </li>
+                        <li class="nav-item nav-sessao">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                    </ul>
+                    {% if user.is_authenticated %}
+                        <div class="navbar-text mr-3">Bem-vindo(a), {{ user.username }}</div>
+                        <a class="btn btn-primary" href="{% url 'logout' %}">Sair</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{% url 'login' %}">Entrar</a>
+                    {% endif %}
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="card mt-5 mx-auto" style="max-width: 400px;">
+        <div class="card-body">
+
+            <!-- Formulário para adicionar nova sessão -->
+            <form method="post" action="{% url 'adicionar_sessao' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="titulo">Título:</label>
+                    <input type="text" class="form-control" name="titulo" required>
+                </div>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea class="form-control" name="descricao" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tempo_contado">Tempo Contado (em minutos):</label>
+                    <input type="number" class="form-control" name="tempo_contado" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Adicionar Sessão</button>
+            </form>
+        </div>
+    </div>
 
     <hr>
 
     <!-- Tabela para exibir a lista de sessões -->
-    <table>
-        <tr>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Tempo Contado (minutos)</th>
-            <th>Ações</th>
-        </tr>
-        {% for sessao in sessoes %}
-        <tr>
-            <td>{{ sessao.titulo }}</td>
-            <td>{{ sessao.descricao }}</td>
-            <td>{{ sessao.tempo_contado }}</td>
-            <td>
-                <a href="{% url 'atualizar_sessao' sessao.id %}">Editar</a>
-                <a href="{% url 'excluir_sessao' sessao.id %}">Excluir</a>
-            </td>
-        </tr>
-        {% endfor %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Tempo Contado (minutos)</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sessao in sessoes %}
+            <tr>
+                <td>{{ sessao.titulo }}</td>
+                <td>{{ sessao.descricao }}</td>
+                <td>{{ sessao.tempo_contado }}</td>
+                <td>
+                    <a href="{% url 'atualizar_sessao' sessao.id %}">Editar</a>
+                    <a href="{% url 'excluir_sessao' sessao.id %}">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </body>
 </html>
-

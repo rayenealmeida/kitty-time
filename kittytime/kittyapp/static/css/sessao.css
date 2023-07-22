@@ -11,3 +11,56 @@ body, html {
 .container {
     background-color: #1e2033;
 }
+
+/* Estilo para a navbar */
+.navbar {
+    height: 60px;
+    background: #1e2033;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+
+.navbar-dark .navbar-toggler {
+    color: rgba(255, 255, 255, .5);
+    border: none;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 1)!important;
+}
+
+/* Estilo para o novo botão "Sessão" */
+.nav-sessao {
+    margin-left: 20px; 
+}
+
+.nav-sessao a {
+    color: #fff; 
+    font-size: 16px;
+    text-decoration: none; 
+    padding: 12px 24px;
+    border-radius: 25px; 
+}
+
+.nav-sessao a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.nav-sessao a::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -10px; 
+    width: 2px;
+    height: 25px;
+    background-color: #fff; 
+    transform: translateY(-50%);
+}
+

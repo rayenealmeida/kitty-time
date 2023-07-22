@@ -19,9 +19,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 550px; /* Ajuste o valor da altura da imagem conforme necessário */
     background: url("{% static 'kittyapp/logo.png' %}");
     background-size: cover;
+    margin-bottom: 50px; /* Ajuste a margem inferior conforme necessário */
 }
 
 .logo {
@@ -31,7 +31,7 @@
 
 .message-container {
     position: absolute;
-    bottom: 0;
+    bottom: -150px; /* Ajuste este valor para mover a mensagem para mais abaixo */
     left: 0;
     width: 100%;
     padding: 10px;
@@ -39,4 +39,3 @@
     color: #fff; /* Ajuste a cor do texto da mensagem */
     text-align: center;
 }
-
